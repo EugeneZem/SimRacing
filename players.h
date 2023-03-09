@@ -6,11 +6,10 @@ class Players
 public:
 	Players();
 	~Players();
+	std::string name();
+	int speed();
 
 protected:
-	std::string name;
-	int speed;
-	int activity;
-	int* relax;
-	bool flay;
+	std::string _name;
+	int _speed;
 };

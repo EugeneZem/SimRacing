@@ -2,30 +2,39 @@
 #include "walkings.h"
 #include "players.h"
 
+
 Walkings::Walkings() {}
 
 
 Walkings::~Walkings()
 {
-	delete[] relax;
+	_relax.clear();
 }
 
-float Walkings::run(int dist)
+int Walkings::activity() { return _activity; }
+
+float Walkings::relax(int count)
 {
-	float result = dist / speed;
-	int relaxCount = result / activity - 1;
-	int relaxInd = 1;
-	while (relaxCount > 0)
-	{
-		if (relaxInd < relax[0])
-		{
-			result = result + relax[relaxInd++];
-		}
-		else
-		{
-			result = result + relax[(int)relax[0]];
-		}
-		relaxCount--;
-	}
-	return result;
+	return _relax[count];
 }
+
+
+//float Walkings::run(int dist)
+//{
+//	float result = dist / _speed;
+//	int relaxCount = result / _activity - 1;
+//	int relaxInd = 1;
+//	while (relaxCount > 0)
+//	{
+//		if (relaxInd < _relax[0])
+//		{
+//			result = result + _relax[relaxInd++];
+//		}
+//		else
+//		{
+//			result = result + _relax[(int)_relax[0]];
+//		}
+//		relaxCount--;
+//	}
+//	return result;
+//}

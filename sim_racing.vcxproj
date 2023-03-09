@@ -128,20 +128,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="boots.cpp" />
+    <ClCompile Include="broom.cpp" />
     <ClCompile Include="camel.cpp" />
     <ClCompile Include="camelFast.cpp" />
     <ClCompile Include="centaur.cpp" />
+    <ClCompile Include="eagle.cpp" />
     <ClCompile Include="flyings.cpp" />
+    <ClCompile Include="magicCarpet.cpp" />
+    <ClCompile Include="rasing.cpp" />
     <ClCompile Include="sim_racing.cpp" />
     <ClCompile Include="players.cpp" />
     <ClCompile Include="walkings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boots.h" />
+    <ClInclude Include="broom.h" />
     <ClInclude Include="camel.h" />
     <ClInclude Include="camelFast.h" />
     <ClInclude Include="centaur.h" />
+    <ClInclude Include="eagle.h" />
     <ClInclude Include="flyings.h" />
+    <ClInclude Include="magicCarpet.h" />
+    <ClInclude Include="rasing.h" />
     <ClInclude Include="walkings.h" />
     <ClInclude Include="players.h" />
   </ItemGroup>

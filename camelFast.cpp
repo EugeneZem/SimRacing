@@ -5,14 +5,10 @@
 
 CamelFast::CamelFast()
 {
-	name = "Верблюд быстроход";
-	speed = 40;
-	activity = 10;
-	relax = new float[4];
-	relax[0] = 3;
-	relax[1] = 5;
-	relax[2] = 6.5;
-	relax[3] = 8;
+	_name = "Верблюд быстроход";
+	_speed = 40;
+	_activity = 10;
+	_relax = { 3, 5, 6.5, 8 };
 }
 
 CamelFast::~CamelFast() {}

@@ -5,13 +5,10 @@
 
 Boots::Boots()
 {
-	name = "Ботинки-вездеходы";
-	speed = 6;
-	activity = 60;
-	relax = new float[3];
-	relax[0] = 2;
-	relax[1] = 10;
-	relax[2] = 5;
+	_name = "Ботинки-вездеходы";
+	_speed = 6;
+	_activity = 60;
+	_relax = { 2, 10, 5 };
 }
 
 Boots::~Boots() {}
