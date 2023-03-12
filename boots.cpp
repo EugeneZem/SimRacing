@@ -8,7 +8,7 @@ Boots::Boots()
 	_name = "Ботинки-вездеходы";
 	_speed = 6;
 	_activity = 60;
-	_relax = { 2, 10, 5 };
+	_relax = { 10, 5 };
 }
 
 Boots::~Boots() {}

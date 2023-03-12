@@ -11,7 +11,13 @@ Broom::Broom()
 
 Broom::~Broom() {}
 
-float Broom::reduced(int dist)
+void Broom::reduced(int* dist, float* reduc)
 {
-	return (100 - (int)(dist / 1000)) / 100;
+	*reduc = (100 - (int)(*dist / 1000)) / 100;
+}
+
+float Broom::run(int* dist)
+{
+	float reduc = (100 - (int)(*dist / 1000)) / 100;
+	return *dist * reduc / _speed;
 }

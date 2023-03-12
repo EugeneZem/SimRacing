@@ -21,7 +21,7 @@ void racingType(int* racingType)
         std::cout << "3. Гонка для наземного и воздушного транспорта" << std::endl;
         std::cout << "Выберите тип гонки: ";
         std::cin >> iType;
-        *racingType = static_cast<int>(iType) - 48;
+            *racingType = static_cast<int>(iType) - 48;
         if (*racingType < 1 || *racingType > 3)
         {
             racingType = 0;

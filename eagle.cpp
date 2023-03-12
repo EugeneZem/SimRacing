@@ -11,7 +11,14 @@ Eagle::Eagle()
 
 Eagle::~Eagle() {}
 
-float Eagle::reduced(int dist)
+void Eagle::reduced(int* dist, float* reduc)
 {
-	return 0.94;
+	*reduc = 0.94;
+}
+
+
+float Eagle::run(int* dist)
+{
+	float reduc = 0.94;
+	return *dist * reduc / _speed;
 }

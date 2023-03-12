@@ -6,8 +6,9 @@ class MagicCarpet : public Flyings
 public:
 	MagicCarpet();
 	~MagicCarpet();
-	
-	float reduced(int dist) override;
+
+	void reduced(int* dist, float* reduc);
+	float run(int* dist) override;
 
 private:
 

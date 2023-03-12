@@ -8,7 +8,7 @@ CamelFast::CamelFast()
 	_name = "Верблюд быстроход";
 	_speed = 40;
 	_activity = 10;
-	_relax = { 3, 5, 6.5, 8 };
+	_relax = { 5, 6.5, 8 };
 }
 
 CamelFast::~CamelFast() {}

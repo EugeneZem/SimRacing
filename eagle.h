@@ -7,7 +7,9 @@ public:
 	Eagle();
 	~Eagle();
 
-	float reduced(int dist) override;
+	void reduced(int* dist, float* reduc);
+	float run(int* dist) override;
+
 private:
 
 };

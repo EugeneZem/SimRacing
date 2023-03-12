@@ -9,7 +9,7 @@ public:
 	~Walkings();
 	int activity();
 	float relax(int count);
-	float run(int dist);
+	float run(int* dist);
 
 //	Walkings operator = (Boots boots);
 	
