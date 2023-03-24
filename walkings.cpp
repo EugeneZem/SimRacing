@@ -19,11 +19,11 @@ float Walkings::relax(int count)
 }
 
 
-float Walkings::run(int* dist)
+float Walkings::run(int dist)
 {
-	float result = *dist / _speed;
+	float result = dist / _speed;
 	int relaxCount;
-	if (((*dist / _speed) % _activity) == 0)
+	if (((dist / _speed) % _activity) == 0)
 	{
 		relaxCount = result / _activity - 1;
 	}
@@ -42,7 +42,6 @@ float Walkings::run(int* dist)
 		else
 		{
 			result = result + _relax[(_relax.size() - 1)];
-			//result = result + _relax[(int)_relax[0]];
 		}
 		relaxCount--;
 	}

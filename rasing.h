@@ -21,13 +21,15 @@ int racingDist();
 /**
 * Возвращает true при создании нового игрока *player для участия в гонке типа *type
 * проверка на дублирование не выполняется
+* Players* rPlayers, int* count, int* pType, int* newType
 */
-bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* newType);
+bool selectPlayer(Players* , int* , int* , int* );
 
 /**
 * Выводит информацию о дистанции и зарегестрированных участниках
+* Players* rPlayers, int* count, int* pType, int* rDist
 */ 
-void rasingInfo(std::vector <Walkings>* rPlayersWalking, std::vector <Flyings>* rPlayersFlying, int* pType, int* rDist);
+void rasingInfo(Players* , int* , int* , int* );
 
 /**
 * Проверяет попытку повторной регистрации уже зарегестрированного транспортного средства

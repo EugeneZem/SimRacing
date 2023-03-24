@@ -68,10 +68,10 @@ void racingPlayers(int* type, Players* nPlayer, int* count)
 
 
 /**
-* Возвращает true при создании нового игрока *player для участия в гонке типа *type
+* Возвращает true при создании нового игрока *player, участвующего в гонке типа *type
 * проверка на дублирование не выполняется
 */
-bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* newType)
+bool selectPlayer(Players* rPlayers, int* count, int* pType, int* newType)
 {
     bool result = true;
     char value;
@@ -97,7 +97,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 1 || *pType == 3)
         {
             Boots nPlayer;
-            *newWalking = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 1;
             break;
         }
@@ -112,7 +112,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 2 || *pType == 3)
         {
             Broom nPlayer;
-            *newFlyings = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 2;
             break;
         }
@@ -127,7 +127,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 1 || *pType == 3)
         {
             Camel nPlayer;
-            *newWalking = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 1;
             break;
         }
@@ -142,7 +142,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 1 || *pType == 3)
         {
             Centaur nPlayer;
-            *newWalking = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 1;
             break;
         }
@@ -157,7 +157,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 2 || *pType == 3)
         {
             Eagle nPlayer;
-            *newFlyings = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 2;
             break;
         }
@@ -172,7 +172,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 1 || *pType == 3)
         {
             CamelFast nPlayer;
-            *newWalking = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 1;
             break;
         }
@@ -187,7 +187,7 @@ bool selectPlayer(Walkings* newWalking, Flyings* newFlyings, int* pType, int* ne
         if (*pType == 2 || *pType == 3)
         {
             MagicCarpet nPlayer;
-            *newFlyings = nPlayer;
+            rPlayers[*count] = nPlayer;
             *newType = 2;
             break;
         }
@@ -244,9 +244,9 @@ bool checkDouble(std::vector <Flyings>* rPlayersFlying, Flyings* newFlying)
 }
 
 /**
-* Выводит информацию типе гонки и зарегестрированных транспортных средствах 
+* Выводит информацию о типе гонки и зарегестрированных транспортных средствах 
 */
-void rasingInfo(std::vector <Walkings>* rPlayersWalking, std::vector <Flyings>* rPlayersFlying, int* pType, int* rDist)
+void rasingInfo(Players* rPlayers, int* count, int* pType, int* rDist)
 {
     switch (*pType)
     {
@@ -264,36 +264,18 @@ void rasingInfo(std::vector <Walkings>* rPlayersWalking, std::vector <Flyings>* 
     std::string out;
     bool cont = false;
 
-    if ((*rPlayersWalking).size() > 0 || (*rPlayersFlying).size() > 0)
+    if (*count > 0)
     {
         out = "Зарегестрированные транспортные средства: ";
-        if ((*rPlayersWalking).size() > 0)
+        for (int i = 0; i <= *count; i++)
         {
-            int i = 0;
-            while (i <= ((*rPlayersWalking).size() - 1))
+            if (cont)
             {
-                if (cont)
-                {
-                    out = out + ", ";
-                }
-                out = out + (*rPlayersWalking).at(i).name();
-                ++i;
-                cont = true;
+                out = out + ", ";
             }
-        }
-        if ((*rPlayersFlying).size() > 0)
-        {
-            int i = 0;
-            while (i <= ((*rPlayersFlying).size() - 1))
-            {
-                if (cont)
-                {
-                    out = out + ", ";
-                }
-                out = out + (*rPlayersFlying).at(i).name();
-                ++i;
-                cont = true;
-            }
+            out = out + rPlayers[1].name();
+            ++i;
+            cont = true;
         }
         std::cout << out << std::endl;
     }

@@ -11,21 +11,12 @@ MagicCarpet::MagicCarpet()
 
 MagicCarpet::~MagicCarpet() {}
 
-void MagicCarpet::reduced(int* dist, float* reduc)
-{
-	if (*dist > 1000 ) { *reduc =  1; }
-	if (*dist >= 1000 && *dist < 5000) { *reduc = 0.97; }
-	if (*dist >= 5000 && *dist < 10000) { *reduc =  0.9; }
-	if (*dist >= 10000) { *reduc = 0.95; }
-}
-
-
-float MagicCarpet::run(int* dist)
+float MagicCarpet::run(int dist)
 {
 	float reduc;
-	if (*dist > 1000) { reduc = 1; }
-	if (*dist >= 1000 && *dist < 5000) { reduc = 0.97; }
-	if (*dist >= 5000 && *dist < 10000) { reduc = 0.9; }
-	if (*dist >= 10000) { reduc = 0.95; }
-	return *dist * reduc / _speed;
+	if (dist < 1000) { reduc = 1; }
+	if (dist >= 1000 && dist < 5000) { reduc = 0.97; }
+	if (dist >= 5000 && dist < 10000) { reduc = 0.9; }
+	if (dist >= 10000) { reduc = 0.95; }
+	return dist * reduc / _speed;
 }

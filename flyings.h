@@ -7,9 +7,8 @@ class Flyings : public Players
 public:
 	Flyings();
 	~Flyings();
-	virtual void reduced(int* dist, float* reduc);
 
-	virtual float run(int* dist);
+	float run(int dist) = 0;
 		
 protected:
 };
