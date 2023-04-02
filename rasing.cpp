@@ -71,7 +71,7 @@ void racingPlayers(int* type, Players* nPlayer, int* count)
 * Возвращает true при создании нового игрока *player, участвующего в гонке типа *type
 * проверка на дублирование не выполняется
 */
-bool selectPlayer(Players* rPlayers, int* count, int* pType, int* newType)
+bool selectPlayer(Players** rPlayers, Players** allPlayers, int* count, int* pType, int* newType)
 {
     bool result = true;
     char value;
@@ -85,6 +85,9 @@ bool selectPlayer(Players* rPlayers, int* count, int* pType, int* newType)
     std::cout << "0. Закончить регистрацию" << std::endl;
     std::cout << "Выберите транспорт или 0 для окончания процесса регистрации: ";
     std::cin >> value;
+
+    std::system("clear");
+
     switch (static_cast<int>(value) - 48)
     {
     case 0:
@@ -96,106 +99,94 @@ bool selectPlayer(Players* rPlayers, int* count, int* pType, int* newType)
     {
         if (*pType == 1 || *pType == 3)
         {
-            Boots nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[0];
             *newType = 1;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     case 2:
     {
         if (*pType == 2 || *pType == 3)
         {
-            Broom nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[1];
             *newType = 2;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     case 3:
     {
         if (*pType == 1 || *pType == 3)
         {
-            Camel nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[2];
             *newType = 1;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     case 4:
     {
         if (*pType == 1 || *pType == 3)
         {
-            Centaur nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[3];
             *newType = 1;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     case 5:
     {
         if (*pType == 2 || *pType == 3)
         {
-            Eagle nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[4];
             *newType = 2;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
+
         }
+        break;
     }
     case 6:
     {
         if (*pType == 1 || *pType == 3)
         {
             CamelFast nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[5];
             *newType = 1;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     case 7:
     {
         if (*pType == 2 || *pType == 3)
         {
-            MagicCarpet nPlayer;
-            rPlayers[*count] = nPlayer;
+            rPlayers[*count] = allPlayers[6];
             *newType = 2;
-            break;
         }
         else
         {
             *newType = 0;
-            break;
         }
+        break;
     }
     }
     return result;
@@ -204,41 +195,16 @@ bool selectPlayer(Players* rPlayers, int* count, int* pType, int* newType)
 /**
 * Проверяет попытку повторной регистрации уже зарегестрированного транспортного средства
 */
-bool checkDouble(std::vector <Walkings>* rPlayersWalking, Walkings* newWalking)
+bool checkDouble(Players** rPlayers, int* count)
 {
     bool result = false;
-    if ((*rPlayersWalking).size() > 0)
+    for (int i = 0; i < *count; i++)
     {
-        int i = 0;
-        do
+        if (rPlayers[i]->name() == rPlayers[*count]->name())
         {
-            if ((*rPlayersWalking).at(i).name() == newWalking->name()) 
-            {
-                result = true;
-                break;
-            }
-            i++;
+            result = true;
+            break;
         }
-        while (i <= ((*rPlayersWalking).size() - 1));
-    }
-    return result;
-}
-
-bool checkDouble(std::vector <Flyings>* rPlayersFlying, Flyings* newFlying)
-{
-    bool result = false;
-    if ((*rPlayersFlying).size() > 0)
-    {
-        int i = 0;
-        do
-        {
-            if ((*rPlayersFlying).at(i).name() == newFlying->name())
-            {
-                result = true;
-                break;
-            }
-            i++;
-        } while (i <= ((*rPlayersFlying).size() - 1));
     }
     return result;
 }
@@ -246,7 +212,7 @@ bool checkDouble(std::vector <Flyings>* rPlayersFlying, Flyings* newFlying)
 /**
 * Выводит информацию о типе гонки и зарегестрированных транспортных средствах 
 */
-void rasingInfo(Players* rPlayers, int* count, int* pType, int* rDist)
+void rasingInfo(Players** rPlayers, int* count, int* pType, int* rDist)
 {
     switch (*pType)
     {
@@ -267,14 +233,13 @@ void rasingInfo(Players* rPlayers, int* count, int* pType, int* rDist)
     if (*count > 0)
     {
         out = "Зарегестрированные транспортные средства: ";
-        for (int i = 0; i <= *count; i++)
+        for (int i = 0; i < *count; i++)
         {
             if (cont)
             {
                 out = out + ", ";
             }
-            out = out + rPlayers[1].name();
-            ++i;
+            out = out + (*rPlayers[i]).name();
             cont = true;
         }
         std::cout << out << std::endl;

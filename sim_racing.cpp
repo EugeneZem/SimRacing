@@ -15,6 +15,17 @@
 
 #define MODE 0 // 1 - отладка, 0 - рабочий
 
+#if MODE == 1
+
+int test1(Players**, int);
+
+
+
+#endif
+
+
+
+
 int main()
 {
 
@@ -41,8 +52,12 @@ int main()
     Players[2] = &pl2;
     Players[1] = &pl3;
 
-    std::cout << Players[0]->run(dist) << std::endl;
-    std::cout << Players[2]->name() << std::endl;
+//    std::cout << Players[0]->run(dist) << std::endl;
+//    std::cout << Players[2]->name() << std::endl;
+
+    std::cout << Players[1]->name() << " : " << Players[1]->run(dist) << std::endl;
+
+    std::cout << test1(Players, 2) << std::endl;
 
     std::cout << Players[1]->name() << " : " << Players[1]->run(dist) << std::endl;
 
@@ -56,14 +71,21 @@ int main()
     int rType;                                  // Тип гонки
     int rDist;                                  // Гоночная дистанция
     int count = 0;                              // Количество зарегестрированных участников
-    Players* rPlayers[7];                       // Массив участников гонки    
-//  std::vector <Walkings> rPlayersWalking;     // Массив участников наземного типа
-//  std::vector <Flyings> rPlayersFlying;       // Массив участников воздушного типа
-//  Walkings newWalking;                        // Участник наземного типа
-//  Flyings newFlying;                          // Участник воздушного типа
+    Players* rPlayers[7];                       // Массив участников гонки
+    Boots boost;
+    Broom broom;
+    Camel camel;
+    Centaur centaur;
+    Eagle eagle;
+    CamelFast camelFast;
+    MagicCarpet magicCarpet;
+    Players* allPlayers[] = {                  // Массив всех возможных участников гонки
+        &boost, &broom, &camel, &centaur, 
+        &eagle, &camelFast, &magicCarpet };
     int newType;                                // Тип выбранного транспорта
     char iAgain;
     
+    std::system("clear");
     std::cout << "Добро пожаловать в гоночный симулятор!" << std::endl;
 
     do  // цикл игр до выхода из программы
@@ -72,13 +94,14 @@ int main()
         racingType(&rType);                     // Получение типа гонки
         std::system("clear");
         rDist = racingDist();                   // Получение гоночной дистанции
+        std::system("clear");
         char iSel;
         bool iReady = false;                    // Готовность к гонке
         bool iRegistr = false;                  // Окончание регистрации
 
         do  // цикл регистрации 
         {
-
+            std::system("clear");
             if (count < 2)
             {
                 std::cout << "Должно быть зарегестрировано хотя бы 2 транспортных средства" << std::endl;
@@ -91,66 +114,46 @@ int main()
             }
             std::cout << "Выберите действие: ";
             std::cin >> iSel;
+
+            std::system("clear");
+
             if ((static_cast<int>(iSel) - 48) == 1)
             {
 
                 do  // цикл регистрации 
                 {
-                    rasingInfo(rPlayers[0], &count, &rType, &rDist);
+                    if (count > 0)
+                    {
+                        std::cout << std::endl;
+                    }
 
-                    /* *
-                    * 
-                    * 
-                    * Продолжить здесь
-                    * 
-                    * 
-                    * */
-
-
-                    if (selectPlayer(rPlayers[0], &count, &rType, &newType))
+                    rasingInfo(rPlayers, &count, &rType, &rDist);
+                    if (selectPlayer(rPlayers, allPlayers, &count, &rType, &newType))
                     {
                         iRegistr = false;
-                        //switch (newType)
-                        //{
-                        //case 0:
-                        //{
-                        //    std::cout << "Попытка зарегестрировать неправильный тип транспортного средства" << std::endl;
-                        //    break;
-                        //}
-                        //case 1:
-                        //{
-                        //    if (!checkDouble(&rPlayersWalking, &newWalking))
-                        //    {
-                        //        rPlayersWalking.push_back(newWalking);
-                        //        std::cout << newWalking.name() << " успешно зарегестрирован" << std::endl;
-                        //    }
-                        //    else
-                        //    {
-                        //        std::cout << newWalking.name() << " уже зарегестрирован!" << std::endl;
-                        //    }   
-                        //    break;
-                        //}
-                        //case 2:
-                        //{
-                        //    if (!checkDouble(&rPlayersFlying, &newFlying))
-                        //    {
-                        //        rPlayersFlying.push_back(newFlying);
-                        //        std::cout << newFlying.name() << " успешно зарегестрирован" << std::endl;
-                        //    }
-                        //    else
-                        //    {
-                        //        std::cout << newFlying.name() << " уже зарегестрирован!" << std::endl;
-                        //    }
-                        //    break;
-                        //}
-                        //}
+                        
+                        if (newType)
+                        {
+                            if (!checkDouble(rPlayers, &count))
+                            {
+                                std::cout << rPlayers[count]->name() << " успешно зарегестрирован" << std::endl;
+                                count++;
+                            }
+                            else
+                            {
+                                std::cout << rPlayers[count]->name() << " уже зарегестрирован!" << std::endl;
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "Попытка зарегестрировать неправильный тип транспортного средства" << std::endl;
+                        }
                     }
                     else
                     {
                         iRegistr = true;
                     }
-                }
-                while (!iRegistr);
+                } while (!iRegistr);
 
             }
             if ((static_cast<int>(iSel) - 48) == 2)
@@ -159,90 +162,75 @@ int main()
             }
         } while (!iReady);
         
-        //// Расчет значений
-        //struct Result {
-        //    int type; // 1 - walkings; 2 - flyings
-        //    int index;
-        //    float result;
-        //};
-        //std::vector <Result> results;
+        // Расчет значений
+        struct Result {
+            std::string name;
+            float result;
+        };
+        
+        Result* results = new Result[count];
 
-        //if (rPlayersWalking.size() > 0)
-        //{
-        //    for (int i = 0; i < rPlayersWalking.size(); i++)
-        //    {
-        //        results.push_back({1, i, rPlayersWalking.at(i).run(&rDist)});
-        //    }
-        //}
-        //
-        //if (rPlayersFlying.size() > 0)
-        //{
-        //    Flyings* pFlying;
-        //    for (int i = 0; i < rPlayersFlying.size(); i++)
-        //    {
-        //        pFlying = &rPlayersFlying.at(i);
-        //        results.push_back({ 2, (int)rPlayersWalking.size(), pFlying->run(&rDist) });
-        //    }
-        //}
+        for (int i = 0; i < count; i++)
+        {
+            results[i].name = rPlayers[i]->name();
+            results[i].result = rPlayers[i]->run(rDist);
+        }
 
-        //// Сортировка
-        //int _index, _type;
-        //float _result;
-        //for (int i = 0; i < results.size(); i++)
-        //{
-        //    for (int j = 0; j < (results.size() - i - 1); j++)
-        //    {
-        //        if (results.at(j).result > results.at(j + 1).result)
-        //        {
-        //            _index = results.at(j + 1).index;
-        //            _type = results.at(j + 1).type;
-        //            _result = results.at(j + 1).result;
-        //            results.at(j + 1).index = results.at(j).index;
-        //            results.at(j + 1).type = results.at(j).type;
-        //            results.at(j + 1).result = results.at(j).result;
-        //            results.at(j).index = _index;
-        //            results.at(j).type = _type;
-        //            results.at(j).result = _result;
-        //        }
-        //    }
-        //}
+        // Сортировка
+        std::string _name;
+        float _result;
+        for (int i = 0; i < count; i++)
+        {
+            for (int j = 0; j < (count - i - 1); j++)
+            {
+                if (results[j].result > results[j + 1].result)
+                {
+                    _name = results[j + 1].name;
+                    _result = results[j + 1].result;
+                    results[j + 1].name = results[j].name;
+                    results[j + 1].result = results[j].result;
+                    results[j].name = _name;
+                    results[j].result = _result;
+                }
+            }
+        }
 
-        //// Вывод результатов
-        //std::cout << "Результаты гонки:" << std::endl;
-        //for (int i = 0; i < results.size(); i++)
-        //{
-        //    std::cout << i + 1 << ". ";
-        //    if (results.at(i).type == 1)
-        //    {
-        //        std::cout << rPlayersWalking.at(results.at(i).index).name();
-        //    }
-        //    else
-        //    {
-        //        std::cout << rPlayersFlying.at(results.at(i).index).name();
-        //    }
-        //    std::cout << ". Время: " << results.at(i).result << std::endl;
-        //}
+        // Вывод результатов
+        std::system("clear");
+        std::cout << "Результаты гонки:" << std::endl;
+        for (int i = 0; i < count; i++)
+        {
+            std::cout << i + 1 << ". " << results[i].name << ". Время: " << results[i].result << std::endl;
+        }
 
-        //// 
-        //std::cout << "1. Провести еще одну гонку" << std::endl;
-        //std::cout << "2. Выйти" << std::endl;
-        //std::cout << "Выберите действие: ";
+        // 
+        std::cout << std::endl;
+        std::cout << "1. Провести еще одну гонку" << std::endl;
+        std::cout << "2. Выйти" << std::endl;
+        std::cout << "Выберите действие: ";
 
-        //std::cin >> iAgain;
+        std::cin >> iAgain;
 
-        //// Завершение гонки
-        //rPlayersWalking.clear();
-        //rPlayersFlying.clear();
-        //iReady = false;
-        //
-        //if ((static_cast<int>(iAgain) - 48) == 2)
-        //    {
-        //        rPlay = false;
-        //    }
+        // Завершение гонки
+        count = 0;
+        if ((static_cast<int>(iAgain) - 48) == 2)
+        {
+            rPlay = false;
+        }
+        std::system("clear");
     }
     while (rPlay);
 
     // Завершение программы
 
 #endif
+}
+
+
+int test1(Players** player, int count)
+{
+    std::cout << (*player[count]).name() << std::endl;
+    (*player[1]) = (*player[count]);
+
+    return count;
 }

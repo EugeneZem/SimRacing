@@ -19,20 +19,19 @@ void racingType(int* racingType);
 int racingDist();
 
 /**
-* Возвращает true при создании нового игрока *player для участия в гонке типа *type
+* Возвращает true при создании нового игрока *player, выбранного из масива allPlayers для участия в гонке типа *type
 * проверка на дублирование не выполняется
-* Players* rPlayers, int* count, int* pType, int* newType
+* Players** rPlayers, Players** allPlayers, int* count, int* pType, int* newType
 */
-bool selectPlayer(Players* , int* , int* , int* );
+bool selectPlayer(Players** ,Players**, int* , int* , int* );
 
 /**
 * Выводит информацию о дистанции и зарегестрированных участниках
-* Players* rPlayers, int* count, int* pType, int* rDist
+* Players** rPlayers, int* count, int* pType, int* rDist
 */ 
-void rasingInfo(Players* , int* , int* , int* );
+void rasingInfo(Players** , int* , int* , int* );
 
 /**
 * Проверяет попытку повторной регистрации уже зарегестрированного транспортного средства
 */
-bool checkDouble(std::vector <Walkings>* rPlayersWalking, Walkings* newWalking);
-bool checkDouble(std::vector <Flyings>* rPlayersFlying, Flyings* newFlying);
+bool checkDouble(Players**, int*);

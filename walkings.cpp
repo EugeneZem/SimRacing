@@ -18,7 +18,6 @@ float Walkings::relax(int count)
 	return _relax[count];
 }
 
-
 float Walkings::run(int dist)
 {
 	float result = dist / _speed;
